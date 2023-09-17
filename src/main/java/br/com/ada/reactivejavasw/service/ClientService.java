@@ -46,8 +46,8 @@ public class ClientService {
         ));
     }
 
-    public Mono<ResponseDTO<ClientDTO>> findById(String code) {
-        Mono<Client> productMono = this.clientRepository.findById(code);
+    public Mono<ResponseDTO<ClientDTO>> findById(String id) {
+        Mono<Client> productMono = this.clientRepository.findById(id);
         return productMono
                 .map(client -> new ResponseDTO("Busca por id retornada com sucesso!",
                                                this.clientConverter.toClientDTO(client),
@@ -71,9 +71,9 @@ public class ClientService {
                 LocalDateTime.now()));
     }
 
-    public Mono<ResponseDTO> delete(String code) {
+    public Mono<ResponseDTO> delete(String id) {
         return this.clientRepository
-                        .deleteById(code).map((product) -> new ResponseDTO<>("Cliente removido com sucesso!",
+                        .deleteById(id).map((product) -> new ResponseDTO<>("Cliente removido com sucesso!",
                                                                     null,
                                                                          LocalDateTime.now()));
     }
