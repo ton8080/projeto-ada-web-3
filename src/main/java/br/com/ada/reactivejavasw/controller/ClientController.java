@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/products")
+@RequestMapping("api/clients")
 public class ClientController {
 
     @Autowired
@@ -19,7 +19,7 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    @Operation(description = "Create a product",
+    @Operation(description = "Create a Client",
                requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody())
     public Mono<ResponseDTO> create(@RequestBody ClientDTO clientDTO) {
         return this.clientService.create(clientDTO);
@@ -27,29 +27,29 @@ public class ClientController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    @Operation(description = "Find all products")
+    @Operation(description = "Find all Clients")
     public Flux<ResponseDTO<ClientDTO>> getAll() {
         return this.clientService.getAll();
     }
 
     @GetMapping("{code}")
     @ResponseStatus(value = HttpStatus.OK)
-    @Operation(description = "Find by code of product")
-    public Mono<ResponseDTO<ClientDTO>> findByCode(@PathVariable("code") String code) {
-        return this.clientService.findByCode(code);
+    @Operation(description = "Find by id of Client")
+    public Mono<ResponseDTO<ClientDTO>> findById(@PathVariable("id") String id) {
+        return this.clientService.findById(id);
     }
 
     @PutMapping
     @ResponseStatus(value = HttpStatus.OK)
-    @Operation(description = "Update a product")
+    @Operation(description = "Update a Client")
     public Mono<ResponseDTO> update(@RequestBody ClientDTO clientDTO){
         return this.clientService.update(clientDTO);
     }
 
     @DeleteMapping("{reference}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<ResponseDTO> delete(@PathVariable("code") String code) {
-        return this.clientService.delete(code);
+    public Mono<ResponseDTO> delete(@PathVariable("id") String id) {
+        return this.clientService.delete(id);
     }
 
 }

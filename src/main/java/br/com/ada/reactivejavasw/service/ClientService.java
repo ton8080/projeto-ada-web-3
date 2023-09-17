@@ -46,10 +46,10 @@ public class ClientService {
         ));
     }
 
-    public Mono<ResponseDTO<ClientDTO>> findByCode(String code) {
-        Mono<Client> productMono = this.clientRepository.findByCode(code);
+    public Mono<ResponseDTO<ClientDTO>> findById(String code) {
+        Mono<Client> productMono = this.clientRepository.findById(code);
         return productMono
-                .map(client -> new ResponseDTO("Busca por code retornada com sucesso!",
+                .map(client -> new ResponseDTO("Busca por id retornada com sucesso!",
                                                this.clientConverter.toClientDTO(client),
                                                LocalDateTime.now()
                         ));
@@ -58,7 +58,7 @@ public class ClientService {
 
     public Mono<ResponseDTO> update(ClientDTO clientDTO) {
 
-        Mono<Client> productMono = this.clientRepository.findByCode(clientDTO.getId());
+        Mono<Client> productMono = this.clientRepository.findById(clientDTO.getId());
 
         return productMono.flatMap((existingClient) -> {
             existingClient.setId(clientDTO.getId());
@@ -73,7 +73,7 @@ public class ClientService {
 
     public Mono<ResponseDTO> delete(String code) {
         return this.clientRepository
-                        .deleteByCode(code).map((product) -> new ResponseDTO<>("Cliente removido com sucesso!",
+                        .deleteById(code).map((product) -> new ResponseDTO<>("Cliente removido com sucesso!",
                                                                     null,
                                                                          LocalDateTime.now()));
     }
